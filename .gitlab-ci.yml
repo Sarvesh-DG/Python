@@ -1,0 +1,55 @@
+
+image: docker:stable
+
+stages:
+  - test
+  - build
+  - deploy
+
+build-job:
+  image: python:alpine
+  stage: build
+  script:
+    - echo "Building application..."
+    - cd ./devops/
+    - python setup.py sdist
+  tags:
+    - production
+  artifacts:
+    paths:
+      - devops/dist/
+  
+
+
+test-job1:
+  image: python:alpine
+  stage: test
+  script:
+    - echo "Linting code"
+    - pip install pylint pycodestyle
+    - pylint devops/dg_atulya_pkg/
+    - pycodestyle --show-source --show-pep8 devops/dg_atulya_pkg/*
+  tags:
+    - production
+  when: manual
+
+docker-stage:
+  image: python:alpine
+  stage: deploy
+  # services:
+  #  - name: docker:19-dind
+  #   #  entrypoint: ["dockerd-entrypoint.sh", "--tls=false"]
+  # #    alias: thedockerhost
+  # variables:
+  #   DOCKER_HOST: tcp://docker:2375/
+  # #   DOCKER_DRIVER: overlay2
+  # #   DOCKER_TLS_CERTDIR: ""
+  script:
+    - cd ./devops/
+    - pip install -U twine
+    - twine upload dist/* --username $PYPI_USER --password $PYPI_PASSWORDD
+    # - echo "This job deploy docker image to dockerhub"
+    # - docker build -t gitlab-cicd:latest .
+    # - docker push atulyapandey/gitlab-cicd
+  tags:
+    - production
