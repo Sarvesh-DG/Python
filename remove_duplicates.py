@@ -1,9 +1,12 @@
 a=[12,24,35,24,88,120,155,88,120,155]
-seen=set()
-b=[]
-for i in a:
-    if i not in seen:
-        seen.add(i)
-        b.append(i)
-print(b)
+def remove_duplicates(a):
+    seen=set()
+    b=[]
+    for i in a:
+        if i not in seen:
+            seen.add(i)
+            b.append(i)
+    return b
+
+
     

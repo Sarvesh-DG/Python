@@ -7,9 +7,12 @@ def anti_html(url):
     soup = BeautifulSoup(response.text, "html.parser")
     return soup.get_text(separator="\n", strip=True)
 
-url = input("Enter URL: ")
+def main():
+    url = input("Enter URL: ")
 
-try:
-    print(anti_html(url))
-except requests.exceptions.RequestException as e:
-    print(f"Request failed: {e}")
+    try:
+        print(anti_html(url))
+    except requests.exceptions.RequestException as e:
+        print(f"Request failed: {e}")
+if __name__ == "__main__":
+    anti_html()

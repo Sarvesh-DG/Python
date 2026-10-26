@@ -23,5 +23,9 @@ def fetch_employees(batch_size=1000):
         cur.close()
         con.close()
 
-for employee in fetch_employees():
-    print(employee)
+def main():
+    for employee in fetch_employees():
+        print(employee)
+
+if __name__=="__main__":
+    main()
