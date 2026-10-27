@@ -1,12 +1,15 @@
-a=[12,24,35,24,88,120,155,88,120,155]
-def remove_duplicates(a):
-    seen=set()
-    b=[]
-    for i in a:
-        if i not in seen:
-            seen.add(i)
-            b.append(i)
-    return b
+"""Order-preserving duplicate removal."""
 
 
-    
+def remove_duplicates(values: list) -> list:
+    """Return first occurrences in original order.
+
+    Values must be hashable.
+    """
+    seen = set()
+    unique_values = []
+    for value in values:
+        if value not in seen:
+            seen.add(value)
+            unique_values.append(value)
+    return unique_values
