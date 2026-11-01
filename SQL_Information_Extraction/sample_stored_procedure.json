@@ -1,0 +1,85 @@
+[
+    {
+        "procedure_name": "GetCustomerOrders",
+        "parameters": [
+            {
+                "mode": "IN",
+                "name": "customerId",
+                "data_type": "INT"
+            },
+            {
+                "mode": "IN",
+                "name": "startDate",
+                "data_type": "DATE"
+            },
+            {
+                "mode": "IN",
+                "name": "endDate",
+                "data_type": "DATE"
+            }
+        ],
+        "tables": [
+            "orders"
+        ],
+        "statements": [
+            "SELECT o.order_id, o.order_date, o.total_amount\n    FROM orders o\n    WHERE o.customer_id = customerId\n      AND o.order_date BETWEEN startDate AND endDate\n    ORDER BY o.order_date DESC"
+        ],
+        "body": "SELECT o.order_id, o.order_date, o.total_amount\n    FROM orders o\n    WHERE o.customer_id = customerId\n      AND o.order_date BETWEEN startDate AND endDate\n    ORDER BY o.order_date DESC;"
+    },
+    {
+        "procedure_name": "UpdateProductStock",
+        "parameters": [
+            {
+                "mode": "IN",
+                "name": "productId",
+                "data_type": "INT"
+            },
+            {
+                "mode": "IN",
+                "name": "quantityChange",
+                "data_type": "INT"
+            },
+            {
+                "mode": "OUT",
+                "name": "newStock",
+                "data_type": "INT"
+            }
+        ],
+        "tables": [
+            "newStock",
+            "products"
+        ],
+        "statements": [
+            "UPDATE products\n    SET stock_quantity = stock_quantity + quantityChange\n    WHERE product_id = productId",
+            "SELECT stock_quantity INTO newStock\n    FROM products\n    WHERE product_id = productId"
+        ],
+        "body": "UPDATE products\n    SET stock_quantity = stock_quantity + quantityChange\n    WHERE product_id = productId;\n\n    SELECT stock_quantity INTO newStock\n    FROM products\n    WHERE product_id = productId;"
+    },
+    {
+        "procedure_name": "AddNewEmployee",
+        "parameters": [
+            {
+                "mode": "IN",
+                "name": "firstName",
+                "data_type": "VARCHAR(50)"
+            },
+            {
+                "mode": "IN",
+                "name": "lastName",
+                "data_type": "VARCHAR(50)"
+            },
+            {
+                "mode": "IN",
+                "name": "department",
+                "data_type": "VARCHAR(50)"
+            }
+        ],
+        "tables": [
+            "employees"
+        ],
+        "statements": [
+            "INSERT INTO employees (first_name, last_name, department, salary, hire_date)\n    VALUES (firstName, lastName, department, salary, CURDATE())"
+        ],
+        "body": "INSERT INTO employees (first_name, last_name, department, salary, hire_date)\n    VALUES (firstName, lastName, department, salary, CURDATE());"
+    }
+]
