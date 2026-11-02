@@ -2,17 +2,20 @@
 import json
 import re
 from pathlib import Path
-
+import os
 import mysql.connector
 import pandas as pd
+from dotenv import load_dotenv
 
+load_dotenv()
 
 INPUT_FILE = Path("sample_data_for_assignment.json")
+
 
 DB_CONFIG = {
     "host": "localhost",
     "user": "root",
-    "password": "root",
+    "password": os.getenv("DB_PASSWORD"),
     "database": "json_assignment",
 }
 
