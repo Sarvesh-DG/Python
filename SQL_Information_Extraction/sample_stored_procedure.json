@@ -46,7 +46,6 @@
             }
         ],
         "tables": [
-            "newStock",
             "products"
         ],
         "statements": [
@@ -72,6 +71,11 @@
                 "mode": "IN",
                 "name": "department",
                 "data_type": "VARCHAR(50)"
+            },
+            {
+                "mode": "IN",
+                "name": "salary",
+                "data_type": "DECIMAL(10,2)"
             }
         ],
         "tables": [
